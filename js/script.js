@@ -13,10 +13,11 @@ speedBtn = container.querySelector(".playback-speed span"),
 speedOptions = container.querySelector(".speed-options"),
 pipBtn = container.querySelector(".pic-in-pic span"),
 fullScreenBtn = container.querySelector(".fullscreen i");
+wrapper = container.querySelector(".wrapper");
 let timer;
 var doc = window.document;
 var docEl = document.getElementById("container");
-var docVi = document.getElementById("video");
+var docVi = document.querySelector("#video");
   
 var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen;
 var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen;
@@ -143,31 +144,18 @@ document.addEventListener("click", e => {
     }
 });
 
-var vid;
-
-    function init() {
-        vid = document.getElementById("video");
-    }
-
-fullScreenBtn.addEventListener("click", goFullscreen => {
 if (getPlatform() == 2){
-   function goFullscreen() {
-        vid.webkitEnterFullscreen();
-    }
-	$(document).ready(function(){
-        init();
+  docVi.setAttribute("controls", "");
+  wrapper.classList.add("hidden");
+  container.classList.add("hidden");
+}
 
-        $("#video").bind('ended', function(){
-            $('#video')[0].webkitExitFullScreen();
-        });
-    });
-} else {
+fullScreenBtn.addEventListener("click", () => {
   if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
     requestFullScreen.call(docEl);
   }
   else {
     cancelFullScreen.call(doc);  
-  }
 }
 });
 

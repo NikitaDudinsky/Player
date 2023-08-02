@@ -154,6 +154,15 @@ h1 {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   transition: all 0.13s ease 0s;
 }
+
+.wrapper.hidden {
+	display: none;
+}
+
+.container.hidden {
+	box-shadow: none;
+}
+
 .container.show-controls .wrapper{
   bottom: 0;
   opacity: 1;
