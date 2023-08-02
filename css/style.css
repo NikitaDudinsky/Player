@@ -15,8 +15,22 @@ body, .container, .video-controls, .video-timer, .options{
   align-items: center;
   justify-content: center;
 }
+video::-webkit-media-controls-panel {
+  display: none;
+  -webkit-appearance: none;
+}
+video::-webkit-media-controls-play-button {
+  display: none;
+  -webkit-appearance: none;
+}
+video::-webkit-media-controls-start-playback-button {
+  display: none;
+  -webkit-appearance: none
+}
+
 video::-webkit-media-controls {
-  display: none !important;
+  display: none;
+  -webkit-appearance: none;
 }
 .container{
   width: 98%;
