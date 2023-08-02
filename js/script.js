@@ -117,15 +117,11 @@ document.addEventListener("click", e => {
 
 
 fullScreenBtn.addEventListener("click", () => { 
-  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
-    container.requestFullscreen();
-	container.mozrequestFullscreen();
-	container.webkitrequestFullscreen();
-  }
-  else {
-    return document.exitFullscreen();
-  }
-});
+  if(!doc.fullscreenElement && !doc.mozFullscreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement){
+  requestFullScreen.call(docEl);
+} else { 
+  cancelFullScreen.call(doc);
+}  
 
 document.addEventListener("fullscreenchange", (event) => {
 	if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
