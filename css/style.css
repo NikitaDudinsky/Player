@@ -11,6 +11,7 @@
 body{
   min-height: 100vh;
   background: #000;
+  height: 5000px;
 }
 
 body, .container, .video-controls, .video-timer, .options{
