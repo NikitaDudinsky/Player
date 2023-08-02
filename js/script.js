@@ -147,13 +147,14 @@ var vid;
 
     function init() {
         vid = document.getElementById("video");
-        vid.addEventListener("loadedmetadata", goFullscreen, false); 
     }
 
-fullScreenBtn.addEventListener("click", () => {
+fullScreenBtn.addEventListener("click", goFullscreen => {
 if (getPlatform() == 2){
-   vid.webkitEnterFullscreen();
-   $(document).ready(function(){
+   function goFullscreen() {
+        vid.webkitEnterFullscreen();
+    }
+	$(document).ready(function(){
         init();
 
         $("#video").bind('ended', function(){
