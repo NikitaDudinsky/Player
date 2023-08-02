@@ -117,12 +117,35 @@ document.addEventListener("click", e => {
 
 
 fullScreenBtn.addEventListener("click", () => { 
-  if (container.requestFullscreen) {
-    container.requestFullscreen();
-  } else if (container.mozRequestFullScreen) {
-    container.mozRequestFullScreen(); // Firefox
-  } else if (container.webkitRequestFullscreen) {
-    container.webkitRequestFullscreen(); // Chrome and Safari
+  const isInFullScreen =
+    (document.fullscreenElement && document.fullscreenElement !== null) ||
+    (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+    (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+    (document.msFullscreenElement && document.msFullscreenElement !== null);
+  if (!isInFullScreen) {
+    if (container.current.requestFullScreen) {
+      // W3C API
+      container.current.requestFullScreen();
+    } else if (container.current.mozRequestFullScreen) {
+      // Mozilla current API
+      container.current.mozRequestFullScreen();
+    } else if (container.current.webkitRequestFullScreen) {
+      // Webkit current API
+      container.current.webkitRequestFullScreen();
+    } else if (container.webkitEnterFullScreen) {
+      // This is the IOS Mobile edge case
+      container.webkitEnterFullScreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
   }
 });
 
