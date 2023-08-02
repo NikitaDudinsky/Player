@@ -25,7 +25,7 @@ h1 {
 	text-align: center;
 }
 
-p {
+.description {
 	color: #f0f0f0;
 	line-height: 1.6em;
 	text-indent: 2.5em;
