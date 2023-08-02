@@ -15,6 +15,9 @@ body, .container, .video-controls, .video-timer, .options{
   align-items: center;
   justify-content: center;
 }
+video::-webkit-media-controls {
+  display: none !important;
+}
 .container{
   width: 98%;
   user-select: none;
