@@ -119,6 +119,7 @@ document.addEventListener("click", e => {
 fullScreenBtn.addEventListener("click", () => { 
   if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
     requestFullScreen.call(docEl);
+    container.webkitRequestFullScreen();
   }
   else {
     cancelFullScreen.call(doc);  
