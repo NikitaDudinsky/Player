@@ -143,15 +143,26 @@ document.addEventListener("click", e => {
     }
 });
 
+var vid;
+
+    function init() {
+        vid = document.getElementById("video");
+        vid.addEventListener("loadedmetadata", goFullscreen, false); 
+    }
 
 fullScreenBtn.addEventListener("click", () => {
 if (getPlatform() == 2){
-  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
-  webkitEnterFullscreen.call(docVi);
-  }
-  else {
-    cancelFullScreen.call(doc);  
-  }
+  function goFullscreen() {
+        vid.webkitEnterFullscreen();
+    }
+
+    $(document).ready(function(){
+        init();
+
+        $("#video").bind('ended', function(){
+            $('#video')[0].webkitExitFullScreen();
+        });
+    });
 } else {
   if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
     requestFullScreen.call(docEl);
