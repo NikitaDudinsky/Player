@@ -152,11 +152,8 @@ var vid;
 
 fullScreenBtn.addEventListener("click", () => {
 if (getPlatform() == 2){
-  function goFullscreen() {
-        vid.webkitEnterFullscreen();
-    }
-
-    $(document).ready(function(){
+   vid.webkitEnterFullscreen();
+   $(document).ready(function(){
         init();
 
         $("#video").bind('ended', function(){
