@@ -118,11 +118,11 @@ document.addEventListener("click", e => {
 
 fullScreenBtn.addEventListener("click", () => { 
   if (container.requestFullscreen) {
-    video.requestFullscreen();
+    container.requestFullscreen();
   } else if (container.mozRequestFullScreen) {
-    video.mozRequestFullScreen(); // Firefox
+    container.mozRequestFullScreen(); // Firefox
   } else if (container.webkitRequestFullscreen) {
-    video.webkitRequestFullscreen(); // Chrome and Safari
+    container.webkitRequestFullscreen(); // Chrome and Safari
   }
 });
 
