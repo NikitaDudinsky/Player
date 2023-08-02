@@ -347,6 +347,10 @@ h1 {
   border-radius: 20px 20px 25px 25px;
 }
 
+.container video.fullscreen{
+  border-radius: 0;
+}
+
 @media (max-width: 833px) {
   .wrapper .video-controls{
     padding: 3px 10px 7px;

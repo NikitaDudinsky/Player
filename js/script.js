@@ -14,6 +14,11 @@ speedOptions = container.querySelector(".speed-options"),
 pipBtn = container.querySelector(".pic-in-pic span"),
 fullScreenBtn = container.querySelector(".fullscreen i");
 let timer;
+var doc = window.document;
+var docEl = document.getElementById("container");
+  
+var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen;
+var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen;
 
 const hideControls = () => {
     if(mainVideo.paused) return;
@@ -110,30 +115,30 @@ document.addEventListener("click", e => {
     }
 });
 
-fullScreenBtn.addEventListener("click", () => {
-    container.classList.toggle("fullscreen");
-    if(document.fullscreenElement) {
-        fullScreenBtn.classList.replace("fa-compress", "fa-expand");
-        return document.exitFullscreen();
-    }
-    fullScreenBtn.classList.replace("fa-expand", "fa-compress");
-    container.requestFullscreen();
+
+fullScreenBtn.addEventListener("click", () => { 
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
+    requestFullScreen.call(docEl);
+  }
+  else {
+    cancelFullScreen.call(doc);  
+  }
 });
 
-fullScreenBtn.addEventListener('click', function (event) {
-
-   // игнорирование событий, которые произошли не на данной кнопке
-   if (!event.target.hasAttribute('data-toggle-fullscreen')) return;
-
-   // если элемент уже в полноэкранном режиме, выйти из него
-   // В противном случае войти в полный экран
-   if (document.fullscreenElement) {
-    document.exitFullscreen();
-   } else {
-    document.documentElement.requestFullscreen();
-   }
-
-  }, false);
+document.addEventListener("fullscreenchange", (event) => {
+	if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
+	
+	fullScreenBtn.classList.replace("fa-compress", "fa-expand");
+	container.classList.remove("fullscreen");
+	mainVideo.classList.remove("fullscreen");
+	
+  }
+  else {
+	fullScreenBtn.classList.replace("fa-expand", "fa-compress");
+	container.classList.add("fullscreen");
+	mainVideo.classList.add("fullscreen");
+  }
+});
 
 speedBtn.addEventListener("click", () => speedOptions.classList.toggle("show"));
 pipBtn.addEventListener("click", () => mainVideo.requestPictureInPicture());
