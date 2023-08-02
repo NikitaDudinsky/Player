@@ -16,9 +16,37 @@ fullScreenBtn = container.querySelector(".fullscreen i");
 let timer;
 var doc = window.document;
 var docEl = document.getElementById("container");
+var docVi = document.getElementById("video");
   
 var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen;
 var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen;
+
+var userDeviceArray = [
+    {device: 1, platform: /Android/},
+    {device: 2, platform: /iPhone/},
+    {device: 3, platform: /iPad/},
+    {device: 4, platform: /Symbian/},
+    {device: 5, platform: /Windows Phone/},
+    {device: 6, platform: /Tablet OS/},
+    {device: 7, platform: /Linux/},
+    {device: 8, platform: /Windows NT/},
+    {device: 9, platform: /Macintosh/}
+];
+
+var platform = navigator.userAgent;
+
+function getPlatform() {
+    for (var i in userDeviceArray) {
+        if (userDeviceArray[i].platform.test(platform)) {
+            return userDeviceArray[i].device;
+        }
+    }
+    return 'Неизвестная платформа!' + platform;
+}
+
+if (getPlatform() == 8){
+	console.log("saaaaaaaaas")
+}
 
 const hideControls = () => {
     if(mainVideo.paused) return;
@@ -116,37 +144,22 @@ document.addEventListener("click", e => {
 });
 
 
-fullScreenBtn.addEventListener("click", () => { 
-  const isInFullScreen =
-    (document.fullscreenElement && document.fullscreenElement !== null) ||
-    (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
-    (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
-    (document.msFullscreenElement && document.msFullscreenElement !== null);
-  if (!isInFullScreen) {
-    if (container.current.requestFullScreen) {
-      // W3C API
-      container.current.requestFullScreen();
-    } else if (container.current.mozRequestFullScreen) {
-      // Mozilla current API
-      container.current.mozRequestFullScreen();
-    } else if (container.current.webkitRequestFullScreen) {
-      // Webkit current API
-      container.current.webkitRequestFullScreen();
-    } else if (container.webkitEnterFullScreen) {
-      // This is the IOS Mobile edge case
-      container.webkitEnterFullScreen();
-    }
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
+fullScreenBtn.addEventListener("click", () => {
+if (getPlatform() == 2){
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
+  requestFullScreen.call(docVi);
   }
+  else {
+    cancelFullScreen.call(doc);  
+  }
+} else {
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
+    requestFullScreen.call(docEl);
+  }
+  else {
+    cancelFullScreen.call(doc);  
+  }
+}
 });
 
 document.addEventListener("fullscreenchange", (event) => {
